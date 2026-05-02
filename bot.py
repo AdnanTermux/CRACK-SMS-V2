@@ -1085,9 +1085,9 @@ async def safe_edit(query, text: str, reply_markup=None, parse_mode="HTML"):
 # ═══════════════════════════════════════════════════════════
 #  DEFAULT CONSTANTS  (overridden by config.json)
 # ═══════════════════════════════════════════════════════════
-BOT_TOKEN         = ""   # Set BOT_TOKEN env var or config.json (never commit real tokens)
-BOT_USERNAME      = "CrackSMSReBot"
-INITIAL_ADMIN_IDS = [7763727542, 7057157722, 7968271742, 7831921606, 8222195948]
+BOT_TOKEN         = ""   # Set BOT_TOKEN env var or config.json 
+BOT_USERNAME      = "CrackSMSReBot" # PUT HERE UR BOT USERNAME
+INITIAL_ADMIN_IDS = [7831921606, 8222195948] # PUT HERE UR ADMINS CHAT ID
 
 # ═══════════════════════════════════════════════════════════
 #  PREMIUM TIER SYSTEM (Professional Features)
@@ -1129,17 +1129,17 @@ REQUIRED_CHATS = [
     {"id": -1003720717628, "title": "CrackOTP Group",   "link": "https://t.me/crackotpgroup"},
     {"id": -1003563202204, "title": "CrackOTP Channel", "link": "https://t.me/crackotp"},
     {"id": -1003866750250, "title": "Crack Chat GC",    "link": "https://t.me/crackchatgc"},
-]
+] # PUT HERE UR CHAT IDS , TITLE AND LINKS
 
 # ──────────────────────────────────────────────────────────────────────────────────
 # DETAILS
 # ──────────────────────────────────────────────────────────────────────────────────
-SUPPORT_USER      = "@ownersigma"
+SUPPORT_USER      = "@ownersigma" # PUT HERE UR SUPPORT USERNAME
 DEVELOPER         = "@NONEXPERTCODER"
-OTP_GROUP_LINK    = "https://t.me/crackotpgroup"
-GET_NUMBER_URL    = "https://t.me/CrackSMSReBot"
-NUMBER_BOT_LINK   = "https://t.me/CrackSMSReBot"
-CHANNEL_LINK      = "https://t.me/crackotp"
+OTP_GROUP_LINK    = "https://t.me/crackotpgroup" # PUT HERE UR OTP GROUP LINK
+GET_NUMBER_URL    = "https://t.me/CrackSMSReBot" # PUT HERE UR BOT LINK
+NUMBER_BOT_LINK   = "https://t.me/CrackSMSReBot" # PUT HERE UR NUMBER BOT LINK
+CHANNEL_LINK      = "https://t.me/crackotp" # PUT HERE  NUMBER CHANNEL LINK
 CHANGE_COOLDOWN_S = 7
 COUNTRIES_FILE    = "countries.json"
 DEX_FILE          = "dex.txt"
