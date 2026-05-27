@@ -142,13 +142,21 @@ const app = {
     renderDashboardShell() {
         const user = auth.getUser();
         const role = user?.role || 'admin';
-        const navItems = NAV_ITEMS
-            .filter(item => !item.roles || item.roles.includes(role))
-            .map(item => `
-            <button class="sidebar-nav-item ${router.currentPage === item.key ? 'active' : ''}" onclick="router.navigate('${item.key}')">
-                ${item.icon} ${item.label}
-            </button>
-        `).join('');
+
+        let navHtml = '';
+        NAV_ITEMS.forEach(section => {
+            const sectionItems = section.items.filter(item => !item.roles || item.roles.includes(role));
+            if (sectionItems.length > 0) {
+                navHtml += `<div class="sidebar-section">
+                    <div class="sidebar-section-title">${section.label}</div>
+                    ${sectionItems.map(item => `
+                        <button class="sidebar-nav-item ${router.currentPage === item.key ? 'active' : ''}" onclick="router.navigate('${item.key}')">
+                            ${item.icon} <span>${item.label}</span>
+                        </button>
+                    `).join('')}
+                </div>`;
+            }
+        });
 
         document.getElementById('app').innerHTML = `
         <div class="dashboard-layout">
@@ -159,7 +167,7 @@ const app = {
                     <div class="sidebar-logo-icon">${ICONS.send}</div>
                     <div><h1>SIGMAPANEL</h1><p>SMS Panel</p></div>
                 </div>
-                <nav class="sidebar-nav">${navItems}</nav>
+                <nav class="sidebar-nav">${navHtml}</nav>
                 <div class="sidebar-user">
                     <div class="sidebar-user-info">
                         <div class="sidebar-user-avatar">${(user?.username || 'U').charAt(0).toUpperCase()}</div>
@@ -209,6 +217,13 @@ const app = {
             case 'api-management':dashboard.renderApiManagement(content); break;
             case 'notifications': dashboard.renderNotifications(content); break;
             case 'settings':      dashboard.renderSettings(content); break;
+            case 'registration-requests': users.renderRegistrationRequests(content); break;
+            case 'payouts':       payments.renderPayouts(content); break;
+            case 'revoke-tools':  numbers.renderRevokeTools(content); break;
+            case 'smpp-dashboard':smpp.renderDashboard(content); break;
+            case 'profit-stats':  dashboard.renderProfitStats(content); break;
+            case 'search-access': dashboard.renderSearchAccess(content); break;
+            case 'live-access':   dashboard.renderLiveAccess(content); break;
             default:              dashboard.render(content);
         }
     },

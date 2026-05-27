@@ -32,51 +32,82 @@ const ICONS = {
     notif: '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
     profit: '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>',
     api: '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+    zap: '<svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
 };
 
 const NAV_ITEMS = [
     // Admin / Manager nav
-    { key: 'dashboard',      label: 'Dashboard',       icon: ICONS.dashboard, roles: ['admin','manager'] },
-    { key: 'numbers',        label: 'Numbers',          icon: ICONS.phone,    roles: ['admin','manager'] },
-    { key: 'ranges',         label: 'Ranges',           icon: ICONS.layers,   roles: ['admin','manager'] },
-    { key: 'allocations',    label: 'Allocations',      icon: ICONS.chart,    roles: ['admin','manager'] },
-    { key: 'sms-reports',    label: 'SMS Reports',      icon: ICONS.sms,      roles: ['admin','manager'] },
-    { key: 'users',          label: 'Users',            icon: ICONS.users,    roles: ['admin','manager'] },
-    { key: 'providers',      label: 'Providers',        icon: ICONS.server,   roles: ['admin'] },
-    { key: 'blacklist',      label: 'App Blacklist',    icon: ICONS.ban,      roles: ['admin','manager'] },
-    { key: 'pricing',        label: 'Pricing',          icon: ICONS.tag,      roles: ['admin','manager'] },
-    { key: 'transactions',   label: 'Ledger',           icon: ICONS.transfer, roles: ['admin','manager'] },
-    { key: 'audit-logs',     label: 'Audit Logs',       icon: ICONS.shield,   roles: ['admin'] },
-    { key: 'api-management', label: 'API Management',   icon: ICONS.api,      roles: ['admin','manager'] },
-    { key: 'support',        label: 'Support',          icon: ICONS.ticket,   roles: ['admin','manager'] },
-    { key: 'notifications',  label: 'Notifications',    icon: ICONS.notif,    roles: ['admin','manager'] },
-    { key: 'settings',       label: 'Settings',         icon: ICONS.settings, roles: ['admin','manager'] },
-    // Reseller nav
-    { key: 'dashboard',      label: 'Home',             icon: ICONS.home,     roles: ['reseller'] },
-    { key: 'sms-reports',    label: 'SMS Reports',      icon: ICONS.sms,      roles: ['reseller'] },
-    { key: 'sms-ranges',     label: 'Request Numbers',  icon: ICONS.request,  roles: ['reseller'] },
-    { key: 'numbers',        label: 'Assigned Numbers', icon: ICONS.phone,    roles: ['reseller'] },
-    { key: 'pricing',        label: 'Rate Card',        icon: ICONS.tag,      roles: ['reseller'] },
-    { key: 'transactions',   label: 'Ledger',           icon: ICONS.transfer, roles: ['reseller'] },
-    { key: 'api-management', label: 'API Management',   icon: ICONS.api,      roles: ['reseller'] },
-    { key: 'support',        label: 'Support',          icon: ICONS.ticket,   roles: ['reseller'] },
-    { key: 'notifications',  label: 'My Notifications', icon: ICONS.notif,    roles: ['reseller'] },
-    // Sub-reseller / End user nav
-    { key: 'dashboard',      label: 'Dashboard',        icon: ICONS.dashboard,roles: ['sub_reseller','user'] },
-    { key: 'numbers',        label: 'My Numbers',       icon: ICONS.phone,    roles: ['sub_reseller','user'] },
-    { key: 'sms-reports',    label: 'SMS Reports',      icon: ICONS.sms,      roles: ['sub_reseller','user'] },
-    { key: 'api-management', label: 'API',              icon: ICONS.api,      roles: ['sub_reseller','user'] },
-    { key: 'notifications',  label: 'Notifications',    icon: ICONS.notif,    roles: ['sub_reseller','user'] },
-    { key: 'support',        label: 'Support',          icon: ICONS.ticket,   roles: ['sub_reseller','user'] },
+    {
+        label: 'Main',
+        items: [
+            { key: 'dashboard',      label: 'Dashboard',       icon: ICONS.dashboard, roles: ['admin','manager'] },
+            { key: 'users',          label: 'User Management', icon: ICONS.users,    roles: ['admin','manager'] },
+            { key: 'registration-requests', label: 'Signup Requests', icon: ICONS.plus, roles: ['admin','manager'] },
+        ]
+    },
+    {
+        label: 'Numbers Management',
+        items: [
+            { key: 'numbers',        label: 'My Numbers',       icon: ICONS.phone,    roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'self-alloc',     label: 'Self Allocation',  icon: ICONS.plus,     roles: ['reseller','sub_reseller','user'] },
+            { key: 'allocations',    label: 'Bulk Allocation',  icon: ICONS.layers,   roles: ['admin','manager'] },
+            { key: 'ranges',         label: 'SMS Ranges',       icon: ICONS.chart,    roles: ['admin','manager'] },
+            { key: 'sms-ranges',     label: 'Range Explorer',   icon: ICONS.request,  roles: ['reseller','sub_reseller','user'] },
+            { key: 'revoke-tools',   label: 'Revoke Tools',     icon: ICONS.trash,    roles: ['admin','manager'] },
+        ]
+    },
+    {
+        label: 'Access & Search',
+        items: [
+            { key: 'search-access',  label: 'Search Access',    icon: ICONS.search,   roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'live-access',    label: 'Live Access',      icon: ICONS.zap,      roles: ['admin','manager','reseller','sub_reseller','user'] },
+        ]
+    },
+    {
+        label: 'SMS & Profit',
+        items: [
+            { key: 'sms-reports',    label: 'SMS Reports',      icon: ICONS.sms,      roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'profit-stats',   label: 'Profit Stats',     icon: ICONS.profit,   roles: ['admin','manager','reseller'] },
+        ]
+    },
+    {
+        label: 'Technical',
+        items: [
+            { key: 'providers',      label: 'Providers',        icon: ICONS.server,   roles: ['admin'] },
+            { key: 'smpp-dashboard', label: 'SMPP Dashboard',   icon: ICONS.server,   roles: ['admin'] },
+            { key: 'api-management', label: 'API Playground',   icon: ICONS.api,      roles: ['admin','manager','reseller','sub_reseller'] },
+            { key: 'webhook-logs',   label: 'Webhook Logs',     icon: ICONS.report,   roles: ['admin'] },
+        ]
+    },
+    {
+        label: 'Finance',
+        items: [
+            { key: 'pricing',        label: 'Pricing',          icon: ICONS.tag,      roles: ['admin','manager'] },
+            { key: 'transactions',   label: 'Ledger',           icon: ICONS.transfer, roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'payouts',        label: 'Payouts',          icon: ICONS.wallet,   roles: ['admin','reseller'] },
+        ]
+    },
+    {
+        label: 'System',
+        items: [
+            { key: 'blacklist',      label: 'App Blacklist',    icon: ICONS.ban,      roles: ['admin','manager'] },
+            { key: 'audit-logs',     label: 'Audit Logs',       icon: ICONS.shield,   roles: ['admin'] },
+            { key: 'support',        label: 'Support',          icon: ICONS.ticket,   roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'notifications',  label: 'Notifications',    icon: ICONS.notif,    roles: ['admin','manager','reseller','sub_reseller','user'] },
+            { key: 'settings',       label: 'Settings',         icon: ICONS.settings, roles: ['admin','manager'] },
+        ]
+    }
 ];
 
 const PAGE_TITLES = {
-    'dashboard':'Dashboard','numbers':'Numbers','ranges':'Ranges','allocations':'Allocations',
+    'dashboard':'Dashboard','numbers':'My Numbers','ranges':'Ranges','allocations':'Bulk Allocation',
     'sms-ranges':'Request Numbers','self-alloc':'Self Allocation',
-    'sms-reports':'SMS Reports','users':'Users','providers':'Providers',
-    'blacklist':'App Blacklist','pricing':'Pricing / Rate Card','transactions':'Transaction Ledger',
-    'audit-logs':'Audit Logs','support':'Support Tickets','api-management':'API Management',
-    'settings':'Settings','notifications':'Notifications',
+    'sms-reports':'SMS Reports','users':'User Management','providers':'Providers',
+    'blacklist':'App Blacklist','pricing':'Pricing','transactions':'Transaction Ledger',
+    'audit-logs':'Audit Logs','support':'Support Tickets','api-management':'API Playground',
+    'settings':'Settings','notifications':'Notifications','registration-requests':'Signup Requests',
+    'payouts':'Payout Management','revoke-tools':'Revoke Tools','smpp-dashboard':'SMPP Dashboard',
+    'profit-stats':'Profit Stats','search-access':'Search Access','live-access':'Live Access',
 };
 
 const ROLE_LABELS = { admin:'Admin', manager:'Manager', reseller:'Reseller', sub_reseller:'Sub Reseller', user:'User', super_admin:'Super Admin' };

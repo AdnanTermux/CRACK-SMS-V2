@@ -97,5 +97,66 @@ const numbers = {
             ui.showToast('Numbers returned', 'success');
             app.renderCurrentPage();
         } catch (err) { ui.showToast(err.message, 'error'); }
+    },
+
+    async renderRevokeTools(container) {
+        ui.showLoading(container);
+        container.innerHTML = `
+        <div class="card">
+            <div class="card-header"><div class="card-title">Revoke Tools</div></div>
+            <div style="padding: 24px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
+                <div class="revoke-card" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: #fff;">
+                    <h3 style="margin-bottom: 12px; font-size: 16px; color: #ef4444;">Revoke All Numbers</h3>
+                    <p style="font-size: 14px; color: #6B7280; margin-bottom: 20px;">Immediately unassign all numbers from all users across all ranges. Use with extreme caution.</p>
+                    <button class="fly-btn fly-btn-danger" style="width: 100%;" onclick="numbers.revokeAll()">Revoke All</button>
+                </div>
+
+                <div class="revoke-card" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: #fff;">
+                    <h3 style="margin-bottom: 12px; font-size: 16px;">Revoke by User</h3>
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="revoke-username" class="fly-input" placeholder="Enter username">
+                    </div>
+                    <button class="fly-btn" style="width: 100%; margin-top: 12px;" onclick="numbers.revokeByUser()">Revoke by User</button>
+                </div>
+
+                <div class="revoke-card" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: #fff;">
+                    <h3 style="margin-bottom: 12px; font-size: 16px;">Revoke by Range</h3>
+                    <div class="form-group">
+                        <label>Range Name</label>
+                        <input type="text" id="revoke-range" class="fly-input" placeholder="Enter range name">
+                    </div>
+                    <button class="fly-btn" style="width: 100%; margin-top: 12px;" onclick="numbers.revokeByRange()">Revoke by Range</button>
+                </div>
+            </div>
+        </div>`;
+    },
+
+    async revokeAll() {
+        if (!confirm('Are you ABSOLUTELY sure you want to revoke ALL numbers from ALL users? This action cannot be undone.')) return;
+        try {
+            const res = await api.call('/numbers-ext/revoke-all', { method: 'POST' });
+            ui.showToast(`Successfully revoked ${res.revoked} numbers`, 'success');
+        } catch (err) { ui.showToast(err.message, 'error'); }
+    },
+
+    async revokeByUser() {
+        const username = document.getElementById('revoke-username').value.trim();
+        if (!username) return ui.showToast('Please enter a username', 'error');
+        if (!confirm(`Revoke all numbers from user ${username}?`)) return;
+        try {
+            const res = await api.call('/numbers-ext/return-numbers', { method: 'POST', body: JSON.stringify({ username }) });
+            ui.showToast(`Successfully revoked ${res.returned} numbers`, 'success');
+        } catch (err) { ui.showToast(err.message, 'error'); }
+    },
+
+    async revokeByRange() {
+        const rangeName = document.getElementById('revoke-range').value.trim();
+        if (!rangeName) return ui.showToast('Please enter a range name', 'error');
+        if (!confirm(`Revoke all numbers in range ${rangeName}?`)) return;
+        try {
+            const res = await api.call('/numbers-ext/return-numbers', { method: 'POST', body: JSON.stringify({ rangeName }) });
+            ui.showToast(`Successfully revoked ${res.returned} numbers`, 'success');
+        } catch (err) { ui.showToast(err.message, 'error'); }
     }
 };
